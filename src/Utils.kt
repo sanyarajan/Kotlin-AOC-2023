@@ -2,6 +2,7 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
+import kotlin.system.exitProcess
 
 /**
  * Reads lines from the given input txt file.
@@ -31,6 +32,17 @@ fun Any?.println(prefix:String? = null) {
  * @param expectedResult The expected result of the check function.
  */
 fun checkInput(inputFile: String, checkFunction: (List<String>) -> Int, expectedResult: Int) {
-    var testInput = readInput(inputFile)
-    check(checkFunction(testInput) == expectedResult)
+    val testInput = readInput(inputFile)
+    if(testInput.isEmpty()) {
+        println("Failed - No input")
+        exitProcess(0)
+    }
+    val result = checkFunction(testInput)
+    try {
+        check(result == expectedResult)
+    }
+    catch(e:IllegalStateException) {
+        println("Failed - Expected $expectedResult, got $result")
+        exitProcess(1)
+    }
 }
