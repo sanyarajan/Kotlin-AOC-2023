@@ -25,6 +25,16 @@ fun Any?.println(prefix:String? = null) {
 }
 
 /**
+ * Function to convert a string with numbers that are separated by whitespace to a list of integers.
+ * It should handle empty strings and strings with only whitespace.
+ */
+fun String.toIntList(): List<Int> {
+    return this.split(" ").mapNotNull { it.toIntOrNull() }
+}
+
+
+
+/**
  * Checks the input file using a specified check function and compares the result with the expected result.
  *
  * @param inputFile The name of the input txt file to read lines from.
